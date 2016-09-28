@@ -1,14 +1,10 @@
 package com.bit2016.network.echo;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
@@ -20,11 +16,16 @@ public class EchoClient {
 		Socket socket = null;
 		Scanner scan = null;
 		try {
+			scan = new Scanner(System.in);
 			socket = new Socket();
 
-			socket.connect(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), PORT));
+			String s = scan.nextLine();
+//			String s = scan.nextLine();
+			String[] ss = s.split(" ");
+			int sss = Integer.parseInt(ss[1]);
+			socket.connect(new InetSocketAddress(ss[0], sss));
+//			socket.connect(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), PORT));
 
-			scan = new Scanner(System.in);
 			// InputStream is = socket.getInputStream();
 			// OutputStream os = socket.getOutputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));

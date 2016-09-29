@@ -1,8 +1,6 @@
 package com.bit2016.network.chat;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -15,7 +13,7 @@ public class ChatClient {
 		Socket socket = null;
 		Scanner scan = null;
 
-//		List<PrintWriter> listPrintWriter = new ArrayList<PrintWriter>();
+		// List<PrintWriter> listPrintWriter = new ArrayList<PrintWriter>();
 
 		try {
 			socket = new Socket();
@@ -26,41 +24,43 @@ public class ChatClient {
 
 			String[] address = data.split(" ");
 
+
 			socket.connect(new InetSocketAddress(address[0], Integer.parseInt(address[1])));
+
 			System.out.println("접속");
-			
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
+
+//			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
-			
-			Thread thread = new ChatClientThread(socket/*, listPrintWriter*/);
-			thread.start();
+
 			while (true) {
-				String x= scan.nextLine();
+				Thread thread = new ChatClientThread(socket/* , listPrintWriter */);
+				thread.start();
+				String x = scan.nextLine();
 				pw.println(x);
 				if (x.equals("QUIT")) {
 					System.out.println();
 					break;
 				}
-//				String x = br.readLine();
-//				if ((br.readLine()).equals(null)) {
-//					break;
-//				}
+				// String x = br.readLine();
+				// if ((br.readLine()).equals(null)) {
+				// break;
+				// }
 			}
 
 		} catch (IOException e) {
 			consoleLog("error1 : " + e);
-		} finally {
-			try {
-				if (socket != null && socket.isClosed() == false) {
-					socket.close();
-				}
-				if (scan != null) {
+		} //finally {
+			//try {
+//				if (socket != null && socket.isClosed() == false) {
+//					socket.close();
+//				}
+				//if (scan != null) {
 					scan.close();
-				}
-			} catch (IOException e) {
-				consoleLog("error2 : " + e);
-			}
-		}
+//				}
+//			} catch (IOException e) {
+//				consoleLog("error2 : " + e);
+//			}
+//		}
 	}
 
 	public static void consoleLog(String data) {

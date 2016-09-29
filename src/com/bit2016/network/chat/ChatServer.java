@@ -45,7 +45,7 @@ public class ChatServer {
 					
 				}
 			} catch (IOException ex) {
-				consoleLog("error:" + ex);
+				consoleLog("erro9r:" + ex);
 			}
 		}
 

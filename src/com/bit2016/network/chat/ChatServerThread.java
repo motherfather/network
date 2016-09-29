@@ -47,11 +47,11 @@ public class ChatServerThread extends Thread {
 					doJoin(tokens[1], printWriter);
 				} else if ("MESSAGE".equals(tokens[0])) {
 					doMessage(name, printWriter, bufferedReader);
-					doQuit(tokens[0], printWriter);
+					doQuit(name, printWriter);
 					break;
 				} else if ("QUIT".equals(tokens[0])) {
-					printWriter.println("\r\n");
-					doQuit(tokens[0], printWriter);
+//					printWriter.println("\r\n");
+					doQuit(name, printWriter);
 					break;
 				}
 			}
@@ -59,16 +59,16 @@ public class ChatServerThread extends Thread {
 					+ remoteSocketAddress.getPort() + "]");
 
 		} catch (UnsupportedEncodingException e) {
-			ChatServer.consoleLog("error:" + e);
+			ChatServer.consoleLog("erro5r:" + e);
 		} catch (IOException e) {
-			ChatServer.consoleLog("error:" + e);
+			ChatServer.consoleLog("error6:" + e);
 		} finally {
 			try {
 				if (socket != null && socket.isClosed() == false) {
 					socket.close();
 				}
 			} catch (IOException e) {
-				ChatServer.consoleLog("error:" + e);
+				ChatServer.consoleLog("error7:" + e);
 			}
 		}
 
@@ -100,13 +100,13 @@ public class ChatServerThread extends Thread {
 
 		while (true) {
 			String message = bufferedReader.readLine();
-			broadcastMessage(name + ":" + message);
-			ChatServer.consoleLog(message);
-
 			if ("QUIT".equals(message)) {
 				// printWriter.println("\r\n");
 				break;
 			}
+			broadcastMessage(name + ":" + message);
+			ChatServer.consoleLog(message);
+
 		}
 //		doQuit(name, printWriter);
 	}

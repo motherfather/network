@@ -22,16 +22,23 @@ public class ChatClientThread extends Thread {
 
 			while (true) {
 				String data = br.readLine();
-				ChatClient.consoleLog(data);
-				
-				if (data.equals(null)) {
+				if (data == null) {
 					break;
 				}
+				ChatClient.consoleLog(data);
+//				System.out.println("서버가준거 " + data);
 			}
 		} catch (IOException e) {
-			ChatClient.consoleLog("error:" + e);
-		}
-
+			ChatClient.consoleLog("erro3r:" + e);
+		}// finally {
+//			try {
+//				if (socket != null && socket.isClosed() == false) {
+//					socket.close();
+//				}
+//			} catch (IOException e) {
+//				ChatClient.consoleLog("error4:" + e);
+//			}
+//		}
 	}
 
 }

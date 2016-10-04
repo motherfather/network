@@ -15,13 +15,13 @@ public class ChatServerThread extends Thread {
 	private String name;
 	private List<PrintWriter> listPrintWriter;
 
-	public ChatServerThread(Socket socket, List<PrintWriter> listPrintWriter) {
+	public ChatServerThread(Socket socket, List<PrintWriter> listPrintWriter) {		// 4-1. 생성자(초기값 설정)
 		this.socket = socket;
 		this.listPrintWriter = listPrintWriter;
 	}
 
 	@Override
-	public void run() {
+	public void run() {		// 4-2. run작성
 		try {
 			// 1. print remote socket address
 			InetSocketAddress remoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
@@ -38,7 +38,7 @@ public class ChatServerThread extends Thread {
 				line = bufferedReader.readLine();
 				ChatServer.consoleLog(line);
 				if (line == null) {
-					// doQuit();
+					doQuit(printWriter);
 					break;
 				}
 				
@@ -111,6 +111,10 @@ public class ChatServerThread extends Thread {
 //		doQuit(name, printWriter);
 	}
 
+	private void doQuit(PrintWriter printWriter) {
+		printWriter.println("종료");
+	}
+	
 	private void doQuit(String name, PrintWriter printWriter) {
 		deletePrintWriter(printWriter);
 
